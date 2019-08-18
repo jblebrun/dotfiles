@@ -1,0 +1,61 @@
+[user]
+	name = Jason LeBrun
+	email = jblebrun@gmail.com
+
+[alias]
+	br = branch
+    co = checkout
+    ci = commit
+    st = status
+    ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+    dlc = diff --cached HEAD^
+    dr  = "!git diff $1^..$1"
+    diffr  = "!git diff $1^..$1"
+    # show merged branches
+    brm = branch --merged
+    # delete merged branches
+    brmd = "!f() { git branch --merged | grep -v '*' | xargs -n 1 git branch -D; }; f"
+    #ordered branch list
+    obr = for-each-ref --sort=authordate --format=\"%(authordate:relative) -- %(refname:short) -- %(contents:subject) -- %(upstream:short) \" refs/heads/
+    #catchup
+    cu = "!f() { git rebase $1 $2 || git rebase --abort && git co $1; }; f"
+    all = "!f() { for br in `git for-each-ref --format=\"%(refname:short)\" refs/heads/`; do $1 $br; done; }; f"
+    diffs = "!git log --pretty=format:\"%Cred %m%m%m %Cblue %h %Cgreen %s\" HEAD...$1"
+
+[color]
+	diff = auto 
+    ui = auto
+    status = auto
+    branch = auto
+
+[core]
+    editor = vim
+    pager = less -FXRS -x4
+	whitespace = -trailing-space,-space-before-tab,-indent-with-non-tab,-tab-in-indent,-cr-at-eol
+[diff]
+    tool = opendiff 
+	prompt = false
+	submodule = log
+
+[difftool "diffmerge"]
+    cmd = /Applications/DiffMerge.app/Contents/MacOS/DiffMerge \"$LOCAL\" \"$REMOTE\"
+
+[mergetool "mvimdiff"]
+	cmd = mvim -d -f \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+[merge]
+	tool = opendiff
+[difftool]
+	prompt = no
+[push]
+	default = tracking
+[credential]
+	helper = osxkeychain
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[fetch]
+	recurseSubmodules = on-demand
+[status]
+	submoduleSummary = true
