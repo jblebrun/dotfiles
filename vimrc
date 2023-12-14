@@ -5,14 +5,14 @@ set nocompatible
 filetype off
 call plug#begin()
 Plug 'altercation/vim-colors-solarized'
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
 "Plug 'vim-airline/vim-airline'
 "Plug 'vim-airline/vim-airline-themes'
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'solarnz/thrift.vim', { 'for': 'thrift' }
-Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'solarnz/thrift.vim', { 'for': 'thrift' }
+"Plug 'ctrlpvim/ctrlp.vim'
 "Plug 'vim-ctrlspace/vim-ctrlspace'
-"Plug '/usr/local/opt/fzf'
+Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 "Plug 'tpope/vim-fugitive'
 "Plug 'airblade/vim-gitgutter'
@@ -22,8 +22,19 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'cespare/vim-toml'
 Plug 'leafgarland/typescript-vim'
+Plug '~/Projects/vim-octo'
+Plug 'jasontbradshaw/pigeon.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+
+command Bd bp\|bd \#
+
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 call plug#end()
+
+set mouse=a
 
 " always show statusline, for airline
 set laststatus=2
@@ -176,3 +187,7 @@ au BufRead,BufEnter ~/Projects/mdt/hud*.js set et sts=2 sw=2
 
 set exrc
 set secure
+
+nnoremap <silent> <leader><leader> :FZF<cr>
+
+nmap <silent> gd <Plug>(coc-definition)
