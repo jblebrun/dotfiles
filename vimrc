@@ -12,7 +12,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 "Plug 'solarnz/thrift.vim', { 'for': 'thrift' }
 "Plug 'ctrlpvim/ctrlp.vim'
 "Plug 'vim-ctrlspace/vim-ctrlspace'
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 "Plug 'tpope/vim-fugitive'
 "Plug 'airblade/vim-gitgutter'
@@ -25,7 +25,8 @@ Plug 'leafgarland/typescript-vim'
 Plug '~/Projects/vim-octo'
 Plug 'jasontbradshaw/pigeon.vim'
 Plug 'rust-lang/rust.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'prabirshrestha/vim-lsp'
 
 
 command Bd bp\|bd \#
@@ -191,3 +192,11 @@ set secure
 nnoremap <silent> <leader><leader> :FZF<cr>
 
 nmap <silent> gd <Plug>(coc-definition)
+
+if executable('rust-analyzer')
+  au User lsp_setup call lsp#register_server({
+        \   'name': 'Rust Language Server',
+        \   'cmd': {server_info->['rust-analyzer']},
+        \   'whitelist': ['rust'],
+        \ })
+endif
